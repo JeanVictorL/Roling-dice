@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downtime test</title>
+</head>
+<body>
+    
+    <!-- Number of Dice Rolled -->
+    <label>Number of Dice Rolled:</label>
+    <input type="number" id="diceRolled" min="1" value="1" required>
+    
+    <!-- Bonus -->
+    <label>Bonus:</label>
+    <input type="number" id="bonus" value="0">
+    
+    <!-- Difficulty -->
+    <label>Difficulty:</label>
+    <input type="number" id="difficulty" min="1" value="10" required>
+    
+    <button onclick="rolandoDado()">Roll Dice</button>
+    <br><br>
+    <h2 id="result">0</h2>
+
+    <script>
+        function rolandoDado() {
+            // Read the values from the inputs when the function is called
+            const diceRolled = parseInt(document.querySelector("#diceRolled").value, 10);
+            const bonus = parseInt(document.querySelector("#bonus").value, 10);
+            const difficulty = parseInt(document.querySelector("#difficulty").value, 10);
+
+            let count = 0;
+
+            for (let i = 0; i < diceRolled; i++) {
+                const randomNumber = Math.floor(Math.random() * 20) + 1 + bonus;
+                console.log(randomNumber);
+                if (randomNumber >= difficulty) {
+                    const esseDado = Math.floor((randomNumber - difficulty) / 10) + 1;
+                    count += esseDado;
+                    console.log(esseDado, count);
+                }
+            }
+
+            // Update the result display
+            document.querySelector("#result").textContent = count;
+        }
+
+    </script>
+</body>
+</html>
