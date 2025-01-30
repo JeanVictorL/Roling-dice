@@ -1,0 +1,121 @@
+/* style.css */
+
+/* General body styling */
+body {
+    background-color: #f4e9d8; /* Light beige, like old paper */
+    color: #3a2c1e; /* Dark brown, like ink */
+    font-family: 'Cinzel', serif; /* Less cartoony, more elegant font */
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    background-image: url('old-paper-texture.jpg'); /* Add a subtle paper texture */
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* Header styling */
+h1 {
+    font-size: 2.5em; /* Smaller font size */
+    color: #333333; /* Dark grey */
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+/* Label styling */
+label {
+    font-size: 1.2em; /* Smaller font size */
+    color: #333333; /* Dark grey */
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Input field styling */
+input[type="number"] {
+    background-color: #f4e9d8; /* Light beige */
+    color: #3a2c1e; /* Dark brown */
+    border: 1px solid #d4af37; /* Golden outline */
+    padding: 8px;
+    font-size: 1em; /* Smaller font size */
+    margin-top: 10px;
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    width: 100px;
+    border-radius: 5px; /* Slightly rounded corners */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Box shadow */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+input[type="number"]:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #b8860b; /* Darker golden outline on focus */
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow on focus */
+}
+
+/* Button styling */
+button {
+    background-color: #333333; /* Dark grey */
+    color: #f4e9d8; /* Light beige text */
+    border: none;
+    padding: 10px 20px; /* Smaller padding */
+    font-size: 1.2em; /* Smaller font size */
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px; /* Slightly rounded corners */
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: background-color 0.3s ease;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Box shadow */
+}
+
+button:hover {
+    background-color: #555555; /* Lighter grey on hover */
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+/* Result text styling */
+#result {
+    font-size: 1.5em; /* Smaller font size */
+    color: #333333; /* Dark grey */
+    margin-top: 30px;
+    padding: 20px;
+    background-color: rgba(244, 233, 216, 0.8); /* Semi-transparent light beige */
+    border: 1px solid #d4af37; /* Golden outline */
+    border-radius: 10px; /* Slightly rounded corners */
+    display: inline-block;
+    text-align: left;
+    max-width: 80%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+}
+
+/* Success and failure message styling */
+#result span {
+    font-weight: bold;
+}
+
+#result span[style*="color: green;"] {
+    color: #228b22; /* Forest green for success */
+}
+
+#result span[style*="color: red;"] {
+    color: #8b0000; /* Dark red for failure */
+}
+
+/* Optional: Add a subtle watermark */
+body::after {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background-image: url('jolly-roger.png'); /* Add a Jolly Roger image */
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.1; /* Slight transparency */
+    z-index: -1;
+}
