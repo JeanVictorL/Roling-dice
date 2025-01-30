@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roll Dice</title>
+    <title>Rolando os dados</title>
+    <style>
+        /* Add this CSS to ensure the background is light grey */
+        body {
+            background-color: lightgrey; /* Light grey background */
+            margin: 0;
+            padding: 20px; /* Add some padding for better spacing */
+            font-family: Arial, sans-serif;
+        }
+    </style>
 </head>
 <body>
-    <h1>Roll Dice</h1>
-    <label for="rolls">How many rolls:</label>
-    <input type="number" id="rolls" min="1"><br><br>
+    <h1>Rolando os dados</h1>
+    <label for="rolls">Quantas rolagens:</label>
+    <input type="number" id="rolls" min="1" value="1"><br><br>
 
     <label for="bonus">Bonus:</label>
-    <input type="number" id="bonus"><br><br>
+    <input type="number" id="bonus" min="0" value="0"><br><br>
 
     <label for="dc">DC:</label>
-    <input type="number" id="dc"><br><br>
+    <input type="number" id="dc" min="10" value="10"><br><br>
 
     <button onclick="rollDice()">Roll</button>
 
-    <h2>Results:</h2>
+    <h2>Resultados:</h2>
     <p id="result"></p>
 
     <script>
@@ -34,33 +43,38 @@
                 const roll = Math.floor(Math.random() * 20) + 1;
                 const total = roll + bonus;
 
-                resultText += `Roll ${i + 1}: ${roll} + ${bonus} = ${total}`;
+                resultText += `Rolagem ${i + 1}: ${roll} + ${bonus} = ${total}`;
 
                 if (total > dc) {
                     successes++;
-                    resultText += '<span style="color: green;"> (Success)</span>';
+                    resultText += '<span style="color: green;"> (Sucesso)</span>';
 
                     // Check if the total is more than 10 above the DC
                     if (total - dc >= 10) {
                         successes++;
-                        resultText += '<span style="color: green;"> (+1 Success for being more than 10 above DC)</span>';
+                        resultText += '<span style="color: green;"> (+1 Sucesso por rodar 10 acima da DC)</span>';
                     }
 
                     // Check if the total is double, triple, etc. the DC
                     const multiplier = Math.floor(total / dc);
                     if (multiplier > 1) {
                         successes += (multiplier - 1);
-                        resultText += `<span style="color: green;"> (+${multiplier - 1} Success for being ${multiplier}x the DC)</span>`;
+                        resultText += `<span style="color: green;"> (+${multiplier - 1} Sucesso por rodar ${multiplier}x a DC)</span>`;
+                    }
+
+                    if (roll == 20) {
+                        successes++;
+                        resultText += '<span style="color: green;"> (+1 Sucesso por rodar um 20)</span>';
                     }
                     
                 } else {
-                    resultText += '<span style="color: red;"> (Failure)</span>';
+                    resultText += '<span style="color: red;"> (Falhou)</span>';
                 }
 
                 resultText += '<br>';
             }
 
-            resultText += `<br>Total Successes: ${successes}`;
+            resultText += `<br>Total de Sucesss: ${successes}`;
             document.getElementById('result').innerHTML = resultText;
         }
     </script>
