@@ -3,49 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Downtime test</title>
+    <title>Roll Dice</title>
 </head>
 <body>
-    
-    <!-- Number of Dice Rolled -->
-    <label>Number of Dice Rolled:</label>
-    <input type="number" id="diceRolled" min="1" value="1" required>
-    
-    <!-- Bonus -->
-    <label>Bonus:</label>
-    <input type="number" id="bonus" value="0">
-    
-    <!-- Difficulty -->
-    <label>Difficulty:</label>
-    <input type="number" id="difficulty" min="1" value="10" required>
-    
-    <button onclick="rolandoDado()">Roll Dice</button>
-    <br><br>
-    <h2 id="result">0</h2>
+    <h1>Roll Dice</h1>
+    <label for="rolls">How many rolls:</label>
+    <input type="number" id="rolls" min="1"><br><br>
+
+    <label for="bonus">Bonus:</label>
+    <input type="number" id="bonus"><br><br>
+
+    <label for="dc">DC:</label>
+    <input type="number" id="dc"><br><br>
+
+    <button onclick="rollDice()">Roll</button>
+
+    <h2>Results:</h2>
+    <p id="result"></p>
 
     <script>
-        function rolandoDado() {
-            // Read the values from the inputs when the function is called
-            const diceRolled = parseInt(document.querySelector("#diceRolled").value, 10);
-            const bonus = parseInt(document.querySelector("#bonus").value, 10);
-            const difficulty = parseInt(document.querySelector("#difficulty").value, 10);
+        function rollDice() {
+            const rolls = parseInt(document.getElementById('rolls').value);
+            const bonus = parseInt(document.getElementById('bonus').value);
+            const dc = parseInt(document.getElementById('dc').value);
+            let successes = 0;
 
-            let count = 0;
+            let resultText = '';
 
-            for (let i = 0; i < diceRolled; i++) {
-                const randomNumber = Math.floor(Math.random() * 20) + 1 + bonus;
-                console.log(randomNumber);
-                if (randomNumber >= difficulty) {
-                    const esseDado = Math.floor((randomNumber - difficulty) / 10) + 1;
-                    count += esseDado;
-                    console.log(esseDado, count);
+            for (let i = 0; i < rolls; i++) {
+                const roll = Math.floor(Math.random() * 20) + 1;
+                const total = roll + bonus;
+
+                resultText += `Roll ${i + 1}: ${roll} + ${bonus} = ${total}`;
+
+                if (total > dc) {
+                    successes++;
+                    resultText += '<span style="color: green;"> (Success)</span>';
+
+                    // Check if the total is more than 10 above the DC
+                    if (total - dc >= 10) {
+                        successes++;
+                        resultText += '<span style="color: green;"> (+1 Success for being more than 10 above DC)</span>';
+                    }
+
+                    // Check if the total is double, triple, etc. the DC
+                    const multiplier = Math.floor(total / dc);
+                    if (multiplier > 1) {
+                        successes += (multiplier - 1);
+                        resultText += `<span style="color: green;"> (+${multiplier - 1} Success for being ${multiplier}x the DC)</span>`;
+                    }
+                    
+                } else {
+                    resultText += '<span style="color: red;"> (Failure)</span>';
                 }
+
+                resultText += '<br>';
             }
 
-            // Update the result display
-            document.querySelector("#result").textContent = count;
+            resultText += `<br>Total Successes: ${successes}`;
+            document.getElementById('result').innerHTML = resultText;
         }
-
     </script>
 </body>
 </html>
