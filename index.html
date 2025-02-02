@@ -5,15 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rolando os dados</title>
     <link rel="stylesheet" href="./style.css">
-    <!-- <style>
-        /* Add this CSS to ensure the background is light grey */
-        body {
-            background-color: lightgrey; /* Light grey background */
-            margin: 0;
-            padding: 20px; /* Add some padding for better spacing */
-            font-family: Arial, sans-serif;
-        }
-    </style> -->
 </head>
 <body>
     <h1>Rolando os dados</h1>
@@ -46,7 +37,7 @@
 
                 resultText += `Rolagem ${i + 1}: ${roll} + ${bonus} = ${total}`;
 
-                if (total > dc) {
+                if (total > dc && roll > 1) {
                     successes++;
                     resultText += '<span style="color: green;"> (Sucesso)</span>';
 
