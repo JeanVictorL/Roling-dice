@@ -37,7 +37,7 @@
 
                 resultText += `Rolagem ${i + 1}: ${roll} + ${bonus} = ${total}`;
 
-                if (total > dc && roll > 1) {
+                if (total >= dc && roll > 1) {
                     successes++;
                     resultText += '<span style="color: green;"> (Sucesso)</span>';
 
