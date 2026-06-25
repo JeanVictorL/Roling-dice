@@ -1,74 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rolando os dados</title>
-    <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rolando os dados</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <h1>Rolando os dados</h1>
-    <label for="rolls">Quantas rolagens:</label>
-    <input type="number" id="rolls" min="1" value="1"><br><br>
 
-    <label for="bonus">Bonus:</label>
-    <input type="number" id="bonus" min="0" value="0"><br><br>
+  <div class="card">
 
-    <label for="dc">DC:</label>
-    <input type="number" id="dc" min="10" value="10"><br><br>
+    <div class="card-header">
+      <h1>Rolando os Dados</h1>
+      <p class="subtitle">Grand Line Dice Roller</p>
+    </div>
 
-    <button onclick="rollDice()">Roll</button>
+    <div class="card-body">
 
-    <h2>Resultados:</h2>
-    <p id="result"></p>
+      <div class="field">
+        <label for="rolls">Quantas rolagens</label>
+        <input type="number" id="rolls" min="1" value="1">
+      </div>
 
-    <script>
-        function rollDice() {
-            const rolls = parseInt(document.getElementById('rolls').value);
-            const bonus = parseInt(document.getElementById('bonus').value);
-            const dc = parseInt(document.getElementById('dc').value);
-            let successes = 0;
+      <div class="field">
+        <label for="bonus">Bônus</label>
+        <input type="number" id="bonus" min="0" value="0">
+      </div>
 
-            let resultText = '';
+      <div class="field">
+        <label for="dc">DC</label>
+        <input type="number" id="dc" min="10" value="10">
+      </div>
 
-            for (let i = 0; i < rolls; i++) {
-                const roll = Math.floor(Math.random() * 20) + 1;
-                const total = roll + bonus;
+      <div class="divider"></div>
 
-                resultText += `Rolagem ${i + 1}: ${roll} + ${bonus} = ${total}`;
+      <button onclick="rollDice()">Rolar os Dados</button>
 
-                if (total >= dc && roll > 1) {
-                    successes++;
-                    resultText += '<span style="color: green;"> (Sucesso)</span>';
+      <div class="results-section">
+        <h2>Resultados</h2>
+        <p id="result"></p>
+      </div>
 
-                    // Check if the total is more than 10 above the DC
-                    if (total - dc >= 10) {
-                        successes++;
-                        resultText += '<span style="color: green;"> (+1 Sucesso por rodar 10 acima da DC)</span>';
-                    }
+    </div>
 
-                    // Check if the total is double, triple, etc. the DC
-                    const multiplier = Math.floor(total / dc);
-                    if (multiplier > 1) {
-                        successes += (multiplier - 1);
-                        resultText += `<span style="color: green;"> (+${multiplier - 1} Sucesso por rodar ${multiplier}x a DC)</span>`;
-                    }
+    <div class="card-footer">
+      ⚓ &nbsp; "I'm going to be the King of the Pirates!" &nbsp; ⚓
+    </div>
 
-                    if (roll == 20) {
-                        successes++;
-                        resultText += '<span style="color: green;"> (+1 Sucesso por rodar um 20)</span>';
-                    }
-                    
-                } else {
-                    resultText += '<span style="color: red;"> (Falhou)</span>';
-                }
+  </div>
 
-                resultText += '<br>';
-            }
+  <script>
+    function rollDice() {
+      const rolls = parseInt(document.getElementById('rolls').value);
+      const bonus = parseInt(document.getElementById('bonus').value);
+      const dc = parseInt(document.getElementById('dc').value);
 
-            resultText += `<br>Total de Sucesss: ${successes}`;
-            document.getElementById('result').innerHTML = resultText;
+      let successes = 0;
+      let resultText = '';
+
+      for (let i = 0; i < rolls; i++) {
+        const roll = Math.floor(Math.random() * 20) + 1;
+        const total = roll + bonus;
+        resultText += `Rolagem ${i + 1}: ${roll} + ${bonus} = ${total}`;
+
+        if (total >= dc && roll > 1) {
+          successes++;
+          resultText += '<span style="color: green;"> (Sucesso)</span>';
+
+          // Check if the total is more than 10 above the DC
+          if (total - dc >= 10) {
+            successes++;
+            resultText += '<span style="color: green;"> (+1 Sucesso por rodar 10 acima da DC)</span>';
+          }
+
+          // Check if the total is double, triple, etc. the DC
+          const multiplier = Math.floor(total / dc);
+          if (multiplier > 1) {
+            successes += (multiplier - 1);
+            resultText += `<span style="color: green;"> (+${multiplier - 1} Sucesso por rodar ${multiplier}x a DC)</span>`;
+          }
+
+          if (roll == 20) {
+            successes++;
+            resultText += '<span style="color: green;"> (+1 Sucesso por rodar um 20)</span>';
+          }
+        } else {
+          resultText += '<span style="color: red;"> (Falhou)</span>';
         }
-    </script>
+
+        resultText += '<br>';
+      }
+
+      resultText += `<br>Total de Sucessos: ${successes}`;
+      document.getElementById('result').innerHTML = resultText;
+    }
+  </script>
+
 </body>
 </html>

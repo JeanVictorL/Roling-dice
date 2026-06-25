@@ -1,121 +1,294 @@
-/* style.css */
+/* ============================================================
+   ONE PIECE – GRAND LINE DICE ROLLER
+   Theme: treasure map meets Thousand Sunny cabin
+   Palette:
+     --ocean-deep   #0d1b2a   (dark navy background)
+     --ocean-mid    #1a2e42   (card/panel bg)
+     --gold         #f4c542   (Luffy's straw hat brim, accent)
+     --gold-dark    #c9952a   (borders, pressed state)
+     --red          #c0392b   (Shanks' cape, fail)
+     --green        #27ae60   (success)
+     --parchment    #f5e6c8   (label text, body)
+     --white-smoke  #fdf6ec   (input text)
+   Type:
+     Display  – 'Pirata One' (Google Fonts, pirate serif)
+     Body     – 'IM Fell English' (inky old-press feel)
+     Utility  – system monospace (rolls output)
+   Signature: animated jolly-roger wax-seal stamp on the Roll button
+============================================================ */
 
-/* General body styling */
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&family=IM+Fell+English:ital@0;1&display=swap');
+
+/* ── Reset & base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --ocean-deep:  #0d1b2a;
+  --ocean-mid:   #1a2e42;
+  --ocean-light: #22394f;
+  --gold:        #f4c542;
+  --gold-dark:   #c9952a;
+  --gold-dim:    #7a5a18;
+  --red:         #c0392b;
+  --green:       #27ae60;
+  --parchment:   #f5e6c8;
+  --ink:         #1a1208;
+  --radius:      6px;
+}
+
 body {
-    background-color: #f4e9d8; /* Light beige, like old paper */
-    color: #3a2c1e; /* Dark brown, like ink */
-    font-family: 'Cinzel', serif; /* Less cartoony, more elegant font */
-    margin: 0;
-    padding: 20px;
-    text-align: center;
-    background-image: url('old-paper-texture.jpg'); /* Add a subtle paper texture */
-    background-size: cover;
-    background-attachment: fixed;
+  min-height: 100vh;
+  background-color: var(--ocean-deep);
+  background-image:
+    radial-gradient(ellipse at 20% 0%, #1a3a5c 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 100%, #0a1520 0%, transparent 55%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1' fill='%23f4c54210'/%3E%3Ccircle cx='10' cy='10' r='0.6' fill='%23f4c54215'/%3E%3Ccircle cx='50' cy='50' r='0.6' fill='%23f4c54215'/%3E%3C/svg%3E");
+  font-family: 'IM Fell English', Georgia, serif;
+  color: var(--parchment);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 16px 80px;
 }
 
-/* Header styling */
+/* ── Card ── */
+.card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--ocean-mid);
+  border: 2px solid var(--gold-dark);
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px var(--gold-dim),
+    0 8px 40px #00000080,
+    inset 0 1px 0 #ffffff12;
+  overflow: hidden;
+}
+
+/* ── Header / title ── */
+.card-header {
+  background: linear-gradient(135deg, #0a1520 0%, #1a3040 50%, #0a1520 100%);
+  border-bottom: 2px solid var(--gold-dark);
+  padding: 28px 32px 24px;
+  text-align: center;
+  position: relative;
+}
+
+.card-header::before,
+.card-header::after {
+  content: '⚓';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  opacity: 0.5;
+  color: var(--gold-dark);
+}
+.card-header::before { left: 20px; }
+.card-header::after  { right: 20px; }
+
 h1 {
-    font-size: 2.5em; /* Smaller font size */
-    color: #333333; /* Dark grey */
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin: 20px 0;
-    font-weight: bold;
+  font-family: 'Pirata One', cursive;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  text-shadow:
+    0 0 20px #f4c54240,
+    2px 2px 0 #00000080;
+  line-height: 1.1;
 }
 
-/* Label styling */
+.subtitle {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  color: var(--gold-dark);
+  font-size: 0.85rem;
+  margin-top: 6px;
+  letter-spacing: 0.08em;
+}
+
+/* ── Body ── */
+.card-body {
+  padding: 32px 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Field rows ── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 label {
-    font-size: 1.2em; /* Smaller font size */
-    color: #333333; /* Dark grey */
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--gold-dark);
+  font-family: 'IM Fell English', serif;
+  font-style: normal;
 }
 
-/* Input field styling */
 input[type="number"] {
-    background-color: #f4e9d8; /* Light beige */
-    color: #3a2c1e; /* Dark brown */
-    border: 1px solid #d4af37; /* Golden outline */
-    padding: 8px;
-    font-size: 1em; /* Smaller font size */
-    margin-top: 10px;
-    font-family: 'Cinzel', serif;
-    text-align: center;
-    width: 100px;
-    border-radius: 5px; /* Slightly rounded corners */
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Box shadow */
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--ocean-light);
+  border: 1px solid var(--gold-dim);
+  border-radius: var(--radius);
+  color: var(--parchment);
+  font-family: 'IM Fell English', serif;
+  font-size: 1.05rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 0.4;
+  filter: invert(1);
 }
 
 input[type="number"]:focus {
-    outline: none; /* Remove default focus outline */
-    border-color: #b8860b; /* Darker golden outline on focus */
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow on focus */
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px #f4c54220;
 }
 
-/* Button styling */
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  margin: 4px 0;
+}
+
+/* ── Roll button ── */
 button {
-    background-color: #333333; /* Dark grey */
-    color: #f4e9d8; /* Light beige text */
-    border: none;
-    padding: 10px 20px; /* Smaller padding */
-    font-size: 1.2em; /* Smaller font size */
-    cursor: pointer;
-    margin-top: 20px;
-    border-radius: 5px; /* Slightly rounded corners */
-    font-family: 'Cinzel', serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: background-color 0.3s ease;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Box shadow */
+  position: relative;
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(160deg, #c9952a 0%, #f4c542 40%, #c9952a 100%);
+  color: var(--ink);
+  font-family: 'Pirata One', cursive;
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  box-shadow:
+    0 4px 0 #7a5a18,
+    0 6px 20px #00000060;
+  transition: transform 0.1s, box-shadow 0.1s, filter 0.15s;
+  overflow: hidden;
+}
+
+button::before {
+  content: '🎲';
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
 }
 
 button:hover {
-    background-color: #555555; /* Lighter grey on hover */
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+  filter: brightness(1.08);
 }
 
-/* Result text styling */
+button:hover::before {
+  transform: translateY(-50%) rotate(20deg) scale(1.2);
+}
+
+button:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 #7a5a18,
+    0 2px 8px #00000060;
+}
+
+/* ── Results section ── */
+.results-section {
+  background: var(--ocean-light);
+  border: 1px solid var(--gold-dim);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  min-height: 80px;
+}
+
+h2 {
+  font-family: 'Pirata One', cursive;
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold-dim), transparent);
+}
+
 #result {
-    font-size: 1.5em; /* Smaller font size */
-    color: #333333; /* Dark grey */
-    margin-top: 30px;
-    padding: 20px;
-    background-color: rgba(244, 233, 216, 0.8); /* Semi-transparent light beige */
-    border: 1px solid #d4af37; /* Golden outline */
-    border-radius: 10px; /* Slightly rounded corners */
-    display: inline-block;
-    text-align: left;
-    max-width: 80%;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.88rem;
+  line-height: 1.9;
+  color: var(--parchment);
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
-/* Success and failure message styling */
-#result span {
-    font-weight: bold;
+/* success / fail spans – the JS inlines these, we override via global color vars */
+#result span[style*="color: green"] {
+  color: var(--green) !important;
+  font-weight: bold;
 }
 
-#result span[style*="color: green;"] {
-    color: #228b22; /* Forest green for success */
+#result span[style*="color: red"] {
+  color: var(--red) !important;
+  font-weight: bold;
 }
 
-#result span[style*="color: red;"] {
-    color: #8b0000; /* Dark red for failure */
+/* total line – last <br> sibling */
+#result br:last-of-type + * {
+  color: var(--gold);
+  font-family: 'Pirata One', cursive;
+  font-size: 1rem;
 }
 
-/* Optional: Add a subtle watermark */
-body::after {
-    content: '';
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 200px;
-    height: 200px;
-    background-image: url('jolly-roger.png'); /* Add a Jolly Roger image */
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 0.1; /* Slight transparency */
-    z-index: -1;
+/* ── Footer stripe ── */
+.card-footer {
+  background: linear-gradient(135deg, #0a1520, #1a3040, #0a1520);
+  border-top: 1px solid var(--gold-dim);
+  padding: 10px;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--gold-dim);
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  body { padding: 20px 10px 60px; }
+  .card-body { padding: 24px 20px 20px; }
+  .card-header { padding: 22px 20px 18px; }
+  .card-header::before, .card-header::after { display: none; }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  button, button::before { transition: none; }
 }
